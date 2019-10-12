@@ -30,7 +30,8 @@ models.sequelize.authenticate().then(() => {
     console.error('Unable to connect to SQL database:',CONFIG.db_name, err);
 });
 if(CONFIG.app==='dev'){
-    models.sequelize.sync({force:true});//creates table if they do not already exist
+    models.sequelize.sync(//{force:true}
+      );//creates table if they do not already exist
    
 }
 // CORS
@@ -38,10 +39,7 @@ app.use(cors());
 
 app.use('/api', routes);
 
-app.use('/', function(req, res){
-	res.statusCode = 200;//send the appropriate status code
-	res.json({status:"success", message:"Parcel Pending API", data:{}})
-});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,7 +56,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.status(500).json({success:false,message:'Doesnt have taht page ):'});
 });
 
 module.exports = app;

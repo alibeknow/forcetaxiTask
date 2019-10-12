@@ -20,7 +20,7 @@ module.exports.getUniqueKeyFromBody = getUniqueKeyFromBody;
 
 const createUser = async (userInfo) => {
     let unique_key, auth_info, err;
-
+console.log("infoUSER",userInfo);
     auth_info={};
     auth_info.status='create';
 

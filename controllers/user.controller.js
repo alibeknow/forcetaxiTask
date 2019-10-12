@@ -1,10 +1,10 @@
-const { User,Company,Project,Department }          = require('../models');
+const { User,Company,Project,Department,UserProject }          = require('../models');
 const authService       = require('../services/auth.service');
 const { to, ReE, ReS }  = require('../services/util.service');
 
 const create = async function(req, res){
-    const {body} = req.body;
-
+    const body = req.body;
+    console.log(req.body);
     if(!body.unique_key && !body.email && !body.phone){
         return ReE(res, 'Please enter an email or phone number to register.');
     } else if(!body.password){
@@ -21,9 +21,14 @@ const create = async function(req, res){
 module.exports.create = create;
 
 const get = async function(req, res){
-    let user = req.user;
+let user=req.body;
 
-    return ReS(res, {user:user.toWeb()});
+    let result=await User.findOne({ where: user });
+    console.log('RESULT+========================================================',result);
+    if (result)
+    {return  ReS(res,{message:"okey",user:user.dataValues},200);}
+
+    return ReS(res, {"message":"doesn't have AnyUser"});
 }
 module.exports.get = get;
 
@@ -74,7 +79,19 @@ const insertData = async function(req, res){
    console.log ("insert user");
    let user=await User.create({first:"ALibek",last:"Nauryzbayev",email:"alibek.amazing@gmail.com",phone:"+777709999431",password:"123456",DepartmentId:dep.dataValues.id});
   console.log("insert Project");
-   let project=await Project.create({name:"Project SampleTask"});
+  let projects=[];
+  projects[0]=await Project.create({name:"Project SampleTask"});
+  projects[1]=await Project.create({name:"Project SampleTask#2"});
+  projects[2]=await Project.create({name:"Project SampleTask#3"});
+  let projectUsers=[];
+  let i=0;
+    projects.map((project)=>{
+        ++i;
+        projectUsers[0]=UserProject.create({ProjectId:project.dataValues.id,UserId:user.dataValues.id});
+
+    })
+
+
 
 return ReS(res,{message:"we DO THAT"});
 }

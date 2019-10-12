@@ -1,4 +1,3 @@
-'use strict';
 const bcrypt 			= require('bcrypt');
 const bcrypt_p 			= require('bcrypt-promise');
 const jwt           	= require('jsonwebtoken');
@@ -7,6 +6,7 @@ const CONFIG            = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
     var Model = sequelize.define('User', {
+        name      : DataTypes.STRING,
         first     : DataTypes.STRING,
         last      : DataTypes.STRING,
         email     : {type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Phone number invalid."} }},
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         this.belongsTo(models.Department, {
           onDelete: "CASCADE",
           foreignKey: {
-            allowNull: false
+            allowNull: true
           }
         });
        this.belongsToMany(models.Project, {through: "UserProject"});
