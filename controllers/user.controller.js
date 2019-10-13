@@ -15,18 +15,18 @@ const create = async function(req, res){
         [err, user] = await to(authService.createUser(body));
 
         if(err) return ReE(res, err, 422);
-        return ReS(res, {message:'Successfully created new user.', user:user, token:user.getJWT()}, 201);
+        return ReS(res, {message:'Successfully created new user.', user:user.toWeb(), token:user.getJWT()}, 201);
     }
 }
 module.exports.create = create;
 
 const get = async function(req, res){
-let user=req.body;
+let user=req.query;
 
     let result=await User.findOne({ where: user });
     console.log('RESULT+========================================================',result);
     if (result)
-    {return  ReS(res,{message:"okey",user:user.dataValues},200);}
+    {return  ReS(res,{message:"okey",user:result.dataValues},200);}
 
     return ReS(res, {"message":"doesn't have AnyUser"});
 }
