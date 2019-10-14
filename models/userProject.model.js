@@ -4,18 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   UserProject.associate = function(models){
-    models.UserProject.belongsTo(models.User,{
-        onDelete: "CASCADE",
-        foreignKey: {
-          allowNull: false
-        }
-      });
-    models.UserProject.belongsTo(models.Project,{
-        onDelete: "CASCADE",
-        foreignKey: {
-          allowNull: false
-        }
-      });
+    models.User.belongsToMany(models.Project, { through: UserProject });
+    models.Project.belongsToMany(models.User, { through: UserProject });
   };
 
 

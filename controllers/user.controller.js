@@ -76,20 +76,17 @@ const insertData = async function(req, res){
     let company=await  Company.create({name:"ScreamAimFire"});
   console.log ("insert department");
    let dep=await Department.create({name:"Web Development",CompanyId:company.dataValues.id});
+   console.log("insert Project"); 
+   let projects=[];
+   projects.push({name:"Project SampleTask"});
+   projects.push({name:"Project SampleTask#2"});
+   projects.push({name:"Project SampleTask#3"});
    console.log ("insert user");
-   let user=await User.create({first:"ALibek",last:"Nauryzbayev",email:"alibek.amazing@gmail.com",phone:"+777709999431",password:"123456",DepartmentId:dep.dataValues.id});
-  console.log("insert Project");
-  let projects=[];
-  projects[0]=await Project.create({name:"Project SampleTask"});
-  projects[1]=await Project.create({name:"Project SampleTask#2"});
-  projects[2]=await Project.create({name:"Project SampleTask#3"});
-  let projectUsers=[];
-  let i=0;
-    projects.map((project)=>{
-        ++i;
-        projectUsers[0]=UserProject.create({ProjectId:project.dataValues.id,UserId:user.dataValues.id});
+   let user=await User.create({first:"ALibek",last:"Nauryzbayev",email:"alibek.amazing@gmail.com",phone:"+777709999431",password:"123456",DepartmentId:dep.dataValues.id,Projects:projects},{include:Project});
+  
 
-    })
+  
+  
 
 
 

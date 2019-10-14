@@ -30,7 +30,7 @@ models.sequelize.authenticate().then(() => {
     console.error('Unable to connect to SQL database:',CONFIG.db_name, err);
 });
 if(CONFIG.app==='dev'){
-    models.sequelize.sync(//{force:true}
+    models.sequelize.sync({force:true}
       );//creates table if they do not already exist
    
 }
