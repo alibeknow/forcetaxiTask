@@ -73,7 +73,7 @@ module.exports.login = login;
 
 const insertData = async function(req, res){
    let company=await  Company.create({name:"ScreamAimFire"});
-   let dep=await Department.create({name:"Web Development",CompanyId:company.dataValues.id});
+   let dep=await Department.create({name:"Web Development",CompanyId:company.id});
    let projects=[];
    projects.push({name:"Project SampleTask"});
    projects.push({name:"Project SampleTask#2"});
