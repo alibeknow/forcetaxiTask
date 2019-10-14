@@ -72,24 +72,13 @@ module.exports.login = login;
 
 
 const insertData = async function(req, res){
-    console.log("insert Company");
-    let company=await  Company.create({name:"ScreamAimFire"});
-  console.log ("insert department");
+   let company=await  Company.create({name:"ScreamAimFire"});
    let dep=await Department.create({name:"Web Development",CompanyId:company.dataValues.id});
-   console.log("insert Project"); 
    let projects=[];
    projects.push({name:"Project SampleTask"});
    projects.push({name:"Project SampleTask#2"});
    projects.push({name:"Project SampleTask#3"});
-   console.log ("insert user");
-   let user=await User.create({first:"ALibek",last:"Nauryzbayev",email:"alibek.amazing@gmail.com",phone:"+777709999431",password:"123456",DepartmentId:dep.dataValues.id,Projects:projects},{include:Project});
-  
-
-  
-  
-
-
-
-return ReS(res,{message:"we DO THAT"});
+   let user=await User.create({first:"ALibek",last:"Nauryzbayev",email:"alibek.amazing@gmail.com",phone:"+777709999431",password:"123456",DepartmentId:dep.id,Projects:projects},{include:Project});
+  return ReS(res,{message:"we DO THAT"});
 }
 module.exports.insertData = insertData;
